@@ -1,6 +1,6 @@
 package com.vibhor.covid19tracker.models;
 
-public class CasesTimeSeries {
+public class CasesTimeSeriesModel {
 
     private String dailyconfirmed;
     private String dailydeceased;

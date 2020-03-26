@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vibhor.covid19tracker.R;
-import com.vibhor.covid19tracker.models.StateWise;
+import com.vibhor.covid19tracker.models.StateWiseModel;
 
 import java.util.List;
 
@@ -20,11 +20,11 @@ import butterknife.ButterKnife;
 public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDataAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<StateWise> mStateWiseList;
+    private List<StateWiseModel> mStateWiseModelList;
 
-    public RecyclerViewDataAdapter(Context context, List<StateWise> stateWiseList) {
+    public RecyclerViewDataAdapter(Context context, List<StateWiseModel> stateWiseModelList) {
         this.mContext = context;
-        this.mStateWiseList = stateWiseList;
+        this.mStateWiseModelList = stateWiseModelList;
     }
 
     @NonNull
@@ -36,18 +36,18 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        StateWise stateWise = mStateWiseList.get(position);
-        holder.stateTv.setText(stateWise.getState());
-        holder.confirmedTv.setText(stateWise.getConfirmed());
-        holder.activeTv.setText(stateWise.getActive());
-        holder.recoveredTv.setText(stateWise.getRecovered());
-        holder.deathsTv.setText(stateWise.getDeaths());
+        StateWiseModel stateWiseModel = mStateWiseModelList.get(position);
+        holder.stateTv.setText(stateWiseModel.getState());
+        holder.confirmedTv.setText(stateWiseModel.getConfirmed());
+        holder.activeTv.setText(stateWiseModel.getActive());
+        holder.recoveredTv.setText(stateWiseModel.getRecovered());
+        holder.deathsTv.setText(stateWiseModel.getDeaths());
     }
 
 
     @Override
     public int getItemCount() {
-        return mStateWiseList.size();
+        return mStateWiseModelList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

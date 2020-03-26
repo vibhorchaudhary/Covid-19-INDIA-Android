@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,7 +17,7 @@ import com.vibhor.covid19tracker.adapters.RecyclerViewDataAdapter;
 import com.vibhor.covid19tracker.interfaces.DataInterface;
 import com.vibhor.covid19tracker.models.CovidDataModel;
 import com.vibhor.covid19tracker.models.KeyValuesModel;
-import com.vibhor.covid19tracker.models.StateWise;
+import com.vibhor.covid19tracker.models.StateWiseModel;
 import com.vibhor.covid19tracker.viewmodels.ActivityViewModel;
 
 import java.util.ArrayList;
@@ -113,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
     private void setData(CovidDataModel data) {
         String lastReportedCaseString = lastReportedCaseText(data.getKey_values());
         lastReportedCaseTv.setText(lastReportedCaseString);
-        StateWise stateWise = getTotalData(data.getStatewise());
-        activeCountTv.setText(stateWise.getActive());
-        confirmedCountTv.setText(stateWise.getConfirmed());
-        deceasedCountTv.setText(stateWise.getDeaths());
-        recoveredCountTv.setText(stateWise.getRecovered());
+        StateWiseModel stateWiseModel = getTotalData(data.getStatewise());
+        activeCountTv.setText(stateWiseModel.getActive());
+        confirmedCountTv.setText(stateWiseModel.getConfirmed());
+        deceasedCountTv.setText(stateWiseModel.getDeaths());
+        recoveredCountTv.setText(stateWiseModel.getRecovered());
 
         confirmedHeadTv.setText("CONFIRMED");
         activeHeadTv.setText("ACTIVE");
@@ -134,9 +133,9 @@ public class MainActivity extends AppCompatActivity {
         return data.toString();
     }
 
-    private StateWise getTotalData(List<StateWise> stateWise) {
-        StateWise state = null;
-        for (StateWise total : stateWise) {
+    private StateWiseModel getTotalData(List<StateWiseModel> stateWiseModel) {
+        StateWiseModel state = null;
+        for (StateWiseModel total : stateWiseModel) {
             if (total.getState().equalsIgnoreCase("TOTAL")) {
                 state = total;
                 break;
@@ -152,27 +151,27 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(CovidDataModel covidDataModel) {
                 setData(covidDataModel);
 
-                List<StateWise> stateWiseArrayList = new ArrayList<>();
+                List<StateWiseModel> stateWiseModelArrayList = new ArrayList<>();
 
-                StateWise stateWise = new StateWise();
-                stateWise.setActive("Active");
-                stateWise.setConfirmed("Confirmed");
-                stateWise.setDeaths("Deaths");
-                stateWise.setRecovered("Recovered");
-                stateWise.setState("State/UT");
+                StateWiseModel stateWiseModel = new StateWiseModel();
+                stateWiseModel.setActive("Active");
+                stateWiseModel.setConfirmed("Confirmed");
+                stateWiseModel.setDeaths("Deaths");
+                stateWiseModel.setRecovered("Recovered");
+                stateWiseModel.setState("State/UT");
 
-                stateWiseArrayList.add(stateWise);
+                stateWiseModelArrayList.add(stateWiseModel);
 
-                List<StateWise> mStateWiseList = covidDataModel.getStatewise();
-                if (mStateWiseList.get(0).getState().equalsIgnoreCase("TOTAL")) {
-                    mStateWiseList.remove(0);
+                List<StateWiseModel> mStateWiseModelList = covidDataModel.getStatewise();
+                if (mStateWiseModelList.get(0).getState().equalsIgnoreCase("TOTAL")) {
+                    mStateWiseModelList.remove(0);
                 }
 
-                Collections.sort(mStateWiseList, (obj1, obj2) -> Integer.valueOf(obj2.getConfirmed().trim()).compareTo(Integer.valueOf(obj1.getConfirmed().trim())));
+                Collections.sort(mStateWiseModelList, (obj1, obj2) -> Integer.valueOf(obj2.getConfirmed().trim()).compareTo(Integer.valueOf(obj1.getConfirmed().trim())));
 
-                stateWiseArrayList.addAll(mStateWiseList);
+                stateWiseModelArrayList.addAll(mStateWiseModelList);
 
-                recyclerViewDataAdapter = new RecyclerViewDataAdapter(MainActivity.this, stateWiseArrayList);
+                recyclerViewDataAdapter = new RecyclerViewDataAdapter(MainActivity.this, stateWiseModelArrayList);
                 dataRv.setAdapter(recyclerViewDataAdapter);
             }
 

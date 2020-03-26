@@ -5,74 +5,37 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
-    app:cardCornerRadius="0dp"
+    android:padding="10dp"
+    app:cardCornerRadius="5dp"
     app:cardElevation="4dp">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
 
         <TextView
             android:id="@+id/state_tv"
-            android:layout_width="125dp"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:padding="5dp"
-            android:textStyle="bold"
-            tools:text="State " />
-
-        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            tools:text="Bengaluru" />
+
+        <View
+            android:id="@+id/anchor"
+            android:layout_width="match_parent"
+            android:layout_height=".6dp"
+            android:layout_below="@+id/state_tv"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/black" />
+
+        <include
+            layout="@layout/child_count_layout"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_toEndOf="@+id/state_tv"
-            android:layout_toRightOf="@+id/state_tv"
-            android:padding="5dp">
-
-            <TextView
-                android:id="@+id/confirmed_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:padding="2dp"
-                android:textStyle="bold"
-                tools:text="Confirmed" />
-
-            <TextView
-                android:id="@+id/active_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:padding="2dp"
-                android:textStyle="bold"
-                tools:text="Active" />
-
-            <TextView
-                android:id="@+id/recovered_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:padding="2dp"
-                android:textStyle="bold"
-                tools:text="Recovered" />
-
-            <TextView
-                android:id="@+id/deaths_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:padding="2dp"
-                android:textStyle="bold"
-                tools:text="Deaths" />
-
-        </LinearLayout>
+            android:layout_below="@+id/anchor"
+            android:layout_marginTop="5dp" />
 
     </RelativeLayout>
 

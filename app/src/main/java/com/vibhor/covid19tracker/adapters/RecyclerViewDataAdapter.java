@@ -42,6 +42,10 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
         holder.activeTv.setText(stateWiseModel.getActive());
         holder.recoveredTv.setText(stateWiseModel.getRecovered());
         holder.deathsTv.setText(stateWiseModel.getDeaths());
+        holder.confirmedHeadTv.setText("Confirmed");
+        holder.activeHeadTv.setText("Active");
+        holder.recoveredHeadTv.setText("Recovered");
+        holder.deceasedHeadTv.setText("Deaths");
     }
 
 
@@ -55,17 +59,29 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
         @BindView(R.id.state_tv)
         TextView stateTv;
 
-        @BindView(R.id.confirmed_tv)
+        @BindView(R.id.confirmed_count_tv)
         TextView confirmedTv;
 
-        @BindView(R.id.active_tv)
+        @BindView(R.id.active_count_tv)
         TextView activeTv;
 
-        @BindView(R.id.recovered_tv)
+        @BindView(R.id.recovered_count_tv)
         TextView recoveredTv;
 
-        @BindView(R.id.deaths_tv)
+        @BindView(R.id.deceased_count_tv)
         TextView deathsTv;
+
+        @BindView(R.id.confirmed_head_tv)
+        TextView confirmedHeadTv;
+
+        @BindView(R.id.active_head_tv)
+        TextView activeHeadTv;
+
+        @BindView(R.id.recovered_head_tv)
+        TextView recoveredHeadTv;
+
+        @BindView(R.id.deceased_head_tv)
+        TextView deceasedHeadTv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

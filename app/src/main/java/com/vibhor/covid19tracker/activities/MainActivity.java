@@ -3,6 +3,8 @@ package com.vibhor.covid19tracker.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +20,8 @@ import com.vibhor.covid19tracker.interfaces.DataInterface;
 import com.vibhor.covid19tracker.models.CovidDataModel;
 import com.vibhor.covid19tracker.models.KeyValuesModel;
 import com.vibhor.covid19tracker.models.StateWiseModel;
+import com.vibhor.covid19tracker.utils.AppUtils;
+import com.vibhor.covid19tracker.utils.GridSpacingItemDecoration;
 import com.vibhor.covid19tracker.viewmodels.ActivityViewModel;
 
 import java.util.ArrayList;
@@ -70,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private ActivityViewModel activityViewModel;
-    private LinearLayoutManager linearLayoutManager;
     private RecyclerViewDataAdapter recyclerViewDataAdapter;
 
     @Override
@@ -94,16 +97,14 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         activityViewModel = new ViewModelProvider(this).get(ActivityViewModel.class);
         activityViewModel.init(this);
-        linearLayoutManager = new LinearLayoutManager(this);
-        dataRv.setLayoutManager(linearLayoutManager);
-        dataRv.setHasFixedSize(true);
 
-        refreshIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDataFromServer();
-            }
-        });
+        GridLayoutManager mLayoutManager = new GridLayoutManager(this, 2);
+        dataRv.setLayoutManager(mLayoutManager);
+        dataRv.addItemDecoration(new GridSpacingItemDecoration(2, AppUtils.dpToPx(this, 10), true));
+        dataRv.setItemAnimator(new DefaultItemAnimator());
+
+
+        refreshIv.setOnClickListener(v -> getDataFromServer());
 
         getDataFromServer();
     }
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
         confirmedHeadTv.setText("CONFIRMED");
         activeHeadTv.setText("ACTIVE");
-        deceasedHeadTv.setText("DECEASED");
+        deceasedHeadTv.setText("DEATHS");
         recoveredHeadTv.setText("RECOVERED");
     }
 
@@ -151,16 +152,16 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(CovidDataModel covidDataModel) {
                 setData(covidDataModel);
 
-                List<StateWiseModel> stateWiseModelArrayList = new ArrayList<>();
+//                List<StateWiseModel> stateWiseModelArrayList = new ArrayList<>();
 
-                StateWiseModel stateWiseModel = new StateWiseModel();
-                stateWiseModel.setActive("Active");
-                stateWiseModel.setConfirmed("Confirmed");
-                stateWiseModel.setDeaths("Deaths");
-                stateWiseModel.setRecovered("Recovered");
-                stateWiseModel.setState("State/UT");
+//                StateWiseModel stateWiseModel = new StateWiseModel();
+//                stateWiseModel.setActive("Active");
+//                stateWiseModel.setConfirmed("Confirmed");
+//                stateWiseModel.setDeaths("Deaths");
+//                stateWiseModel.setRecovered("Recovered");
+//                stateWiseModel.setState("State/UT");
 
-                stateWiseModelArrayList.add(stateWiseModel);
+//                stateWiseModelArrayList.add(stateWiseModel);
 
                 List<StateWiseModel> mStateWiseModelList = covidDataModel.getStatewise();
                 if (mStateWiseModelList.get(0).getState().equalsIgnoreCase("TOTAL")) {
@@ -169,9 +170,9 @@ public class MainActivity extends AppCompatActivity {
 
                 Collections.sort(mStateWiseModelList, (obj1, obj2) -> Integer.valueOf(obj2.getConfirmed().trim()).compareTo(Integer.valueOf(obj1.getConfirmed().trim())));
 
-                stateWiseModelArrayList.addAll(mStateWiseModelList);
+//                stateWiseModelArrayList.addAll(mStateWiseModelList);
 
-                recyclerViewDataAdapter = new RecyclerViewDataAdapter(MainActivity.this, stateWiseModelArrayList);
+                recyclerViewDataAdapter = new RecyclerViewDataAdapter(MainActivity.this, mStateWiseModelList);
                 dataRv.setAdapter(recyclerViewDataAdapter);
             }
 

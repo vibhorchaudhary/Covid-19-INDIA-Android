@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setData(CovidDataModel data) {
-        lastReportedCaseTv.setVisibility(View.GONE);
+        lastReportedCaseTv.setText(getLastUpdatedTime(data.getStatewise()));
         StateWiseModel stateWiseModel = getTotalData(data.getStatewise());
         activeCountTv.setText(stateWiseModel.getActive());
         confirmedCountTv.setText(stateWiseModel.getConfirmed());
@@ -117,6 +118,17 @@ public class MainActivity extends AppCompatActivity {
         activeHeadTv.setText(getResources().getString(R.string.active).toUpperCase());
         deceasedHeadTv.setText(getResources().getString(R.string.deaths).toUpperCase());
         recoveredHeadTv.setText(getResources().getString(R.string.recovered).toUpperCase());
+    }
+
+
+    private String getLastUpdatedTime(List<StateWiseModel> stateWiseModelList) {
+        StringBuilder lastUpdatedTime = new StringBuilder(getResources().getString(R.string.last_reported_case).toUpperCase());
+        for (StateWiseModel stateWiseModel : stateWiseModelList) {
+            if (stateWiseModel.getState().equalsIgnoreCase(getResources().getString(R.string.total))) {
+                lastUpdatedTime.append(stateWiseModel.getLastupdatedtime());
+            }
+        }
+        return lastUpdatedTime.toString();
     }
 
     private StateWiseModel getTotalData(List<StateWiseModel> stateWiseModel) {

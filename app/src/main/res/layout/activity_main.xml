@@ -53,7 +53,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:padding="6dp"
-                android:src="@drawable/ic_refresh" />
+                android:src="@drawable/ic_reload" />
 
         </RelativeLayout>
 

@@ -1,15 +1,6 @@
 package com.vibhor.covid19tracker.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,10 +15,15 @@ import com.vibhor.covid19tracker.utils.AppUtils;
 import com.vibhor.covid19tracker.utils.GridSpacingItemDecoration;
 import com.vibhor.covid19tracker.viewmodels.ActivityViewModel;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -152,17 +148,6 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(CovidDataModel covidDataModel) {
                 setData(covidDataModel);
 
-//                List<StateWiseModel> stateWiseModelArrayList = new ArrayList<>();
-
-//                StateWiseModel stateWiseModel = new StateWiseModel();
-//                stateWiseModel.setActive("Active");
-//                stateWiseModel.setConfirmed("Confirmed");
-//                stateWiseModel.setDeaths("Deaths");
-//                stateWiseModel.setRecovered("Recovered");
-//                stateWiseModel.setState("State/UT");
-
-//                stateWiseModelArrayList.add(stateWiseModel);
-
                 List<StateWiseModel> mStateWiseModelList = covidDataModel.getStatewise();
                 if (mStateWiseModelList.get(0).getState().equalsIgnoreCase("TOTAL")) {
                     mStateWiseModelList.remove(0);
@@ -170,9 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Collections.sort(mStateWiseModelList, (obj1, obj2) -> Integer.valueOf(obj2.getConfirmed().trim()).compareTo(Integer.valueOf(obj1.getConfirmed().trim())));
 
-//                stateWiseModelArrayList.addAll(mStateWiseModelList);
-
-                recyclerViewDataAdapter = new RecyclerViewDataAdapter(MainActivity.this, mStateWiseModelList);
+                recyclerViewDataAdapter = new RecyclerViewDataAdapter(mStateWiseModelList);
                 dataRv.setAdapter(recyclerViewDataAdapter);
             }
 

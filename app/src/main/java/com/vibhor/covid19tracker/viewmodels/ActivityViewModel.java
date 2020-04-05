@@ -2,14 +2,12 @@ package com.vibhor.covid19tracker.viewmodels;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-
-import androidx.lifecycle.ViewModel;
 
 import com.vibhor.covid19tracker.https.ServiceFactory;
 import com.vibhor.covid19tracker.interfaces.DataInterface;
 import com.vibhor.covid19tracker.models.CovidDataModel;
 
+import androidx.lifecycle.ViewModel;
 import retrofit2.Response;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;

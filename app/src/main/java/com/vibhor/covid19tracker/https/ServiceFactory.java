@@ -38,7 +38,6 @@ public class ServiceFactory {
         httpClient.addInterceptor(chain -> {
             Request original = chain.request();
 
-            // Customize the request
             Request request = original.newBuilder()
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")

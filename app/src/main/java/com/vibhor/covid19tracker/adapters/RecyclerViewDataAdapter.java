@@ -19,11 +19,9 @@ import butterknife.ButterKnife;
 
 public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDataAdapter.ViewHolder> {
 
-    private Context mContext;
     private List<StateWiseModel> mStateWiseModelList;
 
-    public RecyclerViewDataAdapter(Context context, List<StateWiseModel> stateWiseModelList) {
-        this.mContext = context;
+    public RecyclerViewDataAdapter(List<StateWiseModel> stateWiseModelList) {
         this.mStateWiseModelList = stateWiseModelList;
     }
 

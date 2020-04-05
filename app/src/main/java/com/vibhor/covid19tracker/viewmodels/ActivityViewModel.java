@@ -3,6 +3,7 @@ package com.vibhor.covid19tracker.viewmodels;
 import android.app.Activity;
 import android.app.ProgressDialog;
 
+import com.vibhor.covid19tracker.R;
 import com.vibhor.covid19tracker.https.ServiceFactory;
 import com.vibhor.covid19tracker.interfaces.DataInterface;
 import com.vibhor.covid19tracker.models.CovidDataModel;
@@ -27,7 +28,7 @@ public class ActivityViewModel extends ViewModel {
     }
 
     public void getDataFromServer(DataInterface dataInterface) {
-        setProgressDialog("Fetching details.. Please wait..");
+        setProgressDialog(mContext.getResources().getString(R.string.fetching_details_message));
         serviceFactory.getBaseService().getCovidDataFromServer()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

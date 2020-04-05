@@ -6,22 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.vibhor.covid19tracker.R;
 import com.vibhor.covid19tracker.models.StateWiseModel;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDataAdapter.ViewHolder> {
 
     private List<StateWiseModel> mStateWiseModelList;
+    private Context mContext;
 
-    public RecyclerViewDataAdapter(List<StateWiseModel> stateWiseModelList) {
+    public RecyclerViewDataAdapter(Context context, List<StateWiseModel> stateWiseModelList) {
+        this.mContext = context;
         this.mStateWiseModelList = stateWiseModelList;
     }
 
@@ -40,10 +41,10 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
         holder.activeTv.setText(stateWiseModel.getActive());
         holder.recoveredTv.setText(stateWiseModel.getRecovered());
         holder.deathsTv.setText(stateWiseModel.getDeaths());
-        holder.confirmedHeadTv.setText("Confirmed");
-        holder.activeHeadTv.setText("Active");
-        holder.recoveredHeadTv.setText("Recovered");
-        holder.deceasedHeadTv.setText("Deaths");
+        holder.confirmedHeadTv.setText(mContext.getResources().getString(R.string.confirmed));
+        holder.activeHeadTv.setText(mContext.getResources().getString(R.string.active));
+        holder.recoveredHeadTv.setText(mContext.getResources().getString(R.string.recovered));
+        holder.deceasedHeadTv.setText(mContext.getResources().getString(R.string.deaths));
     }
 
 

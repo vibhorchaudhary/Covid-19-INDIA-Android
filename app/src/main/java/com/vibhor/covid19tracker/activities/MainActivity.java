@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
         dataRv.addItemDecoration(new GridSpacingItemDecoration(2, AppUtils.dpToPx(this, 10), true));
         dataRv.setItemAnimator(new DefaultItemAnimator());
 
-
         refreshIv.setOnClickListener(v -> getDataFromServer());
 
         getDataFromServer();
@@ -115,14 +114,14 @@ public class MainActivity extends AppCompatActivity {
         deceasedCountTv.setText(stateWiseModel.getDeaths());
         recoveredCountTv.setText(stateWiseModel.getRecovered());
 
-        confirmedHeadTv.setText("CONFIRMED");
-        activeHeadTv.setText("ACTIVE");
-        deceasedHeadTv.setText("DEATHS");
-        recoveredHeadTv.setText("RECOVERED");
+        confirmedHeadTv.setText(getResources().getString(R.string.confirmed).toUpperCase());
+        activeHeadTv.setText(getResources().getString(R.string.active).toUpperCase());
+        deceasedHeadTv.setText(getResources().getString(R.string.deaths).toUpperCase());
+        recoveredHeadTv.setText(getResources().getString(R.string.recovered).toUpperCase());
     }
 
     private String lastReportedCaseText(List<KeyValuesModel> keyValuesModel) {
-        StringBuilder data = new StringBuilder("LAST REPORTED CASE - ");
+        StringBuilder data = new StringBuilder(getResources().getString(R.string.last_reported_case).toUpperCase());
         for (KeyValuesModel model : keyValuesModel) {
             data.append(model.getLastupdatedtime());
             break;
@@ -133,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     private StateWiseModel getTotalData(List<StateWiseModel> stateWiseModel) {
         StateWiseModel state = null;
         for (StateWiseModel total : stateWiseModel) {
-            if (total.getState().equalsIgnoreCase("TOTAL")) {
+            if (total.getState().equalsIgnoreCase(getResources().getString(R.string.total).toUpperCase())) {
                 state = total;
                 break;
             }
@@ -149,27 +148,26 @@ public class MainActivity extends AppCompatActivity {
                 setData(covidDataModel);
 
                 List<StateWiseModel> mStateWiseModelList = covidDataModel.getStatewise();
-                if (mStateWiseModelList.get(0).getState().equalsIgnoreCase("TOTAL")) {
+                if (mStateWiseModelList.get(0).getState().equalsIgnoreCase(getResources().getString(R.string.total).toUpperCase())) {
                     mStateWiseModelList.remove(0);
                 }
 
                 Collections.sort(mStateWiseModelList, (obj1, obj2) -> Integer.valueOf(obj2.getConfirmed().trim()).compareTo(Integer.valueOf(obj1.getConfirmed().trim())));
 
-                recyclerViewDataAdapter = new RecyclerViewDataAdapter(mStateWiseModelList);
+                recyclerViewDataAdapter = new RecyclerViewDataAdapter(MainActivity.this, mStateWiseModelList);
                 dataRv.setAdapter(recyclerViewDataAdapter);
             }
 
             @Override
             public void onFailure() {
-                Toast.makeText(MainActivity.this, "Something went wrong. Please try again!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.something_went_wrong_error), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(Throwable e) {
                 e.printStackTrace();
-                Toast.makeText(MainActivity.this, "Something went wrong. Please try again!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.something_went_wrong_error), Toast.LENGTH_LONG).show();
             }
-
         });
     }
 

@@ -1,6 +1,7 @@
 package com.vibhor.covid19tracker.activities;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -9,7 +10,6 @@ import com.vibhor.covid19tracker.R;
 import com.vibhor.covid19tracker.adapters.RecyclerViewDataAdapter;
 import com.vibhor.covid19tracker.interfaces.DataInterface;
 import com.vibhor.covid19tracker.models.CovidDataModel;
-import com.vibhor.covid19tracker.models.KeyValuesModel;
 import com.vibhor.covid19tracker.models.StateWiseModel;
 import com.vibhor.covid19tracker.utils.AppUtils;
 import com.vibhor.covid19tracker.utils.GridSpacingItemDecoration;
@@ -106,8 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setData(CovidDataModel data) {
-        String lastReportedCaseString = lastReportedCaseText(data.getKey_values());
-        lastReportedCaseTv.setText(lastReportedCaseString);
+        lastReportedCaseTv.setVisibility(View.GONE);
         StateWiseModel stateWiseModel = getTotalData(data.getStatewise());
         activeCountTv.setText(stateWiseModel.getActive());
         confirmedCountTv.setText(stateWiseModel.getConfirmed());
@@ -118,15 +117,6 @@ public class MainActivity extends AppCompatActivity {
         activeHeadTv.setText(getResources().getString(R.string.active).toUpperCase());
         deceasedHeadTv.setText(getResources().getString(R.string.deaths).toUpperCase());
         recoveredHeadTv.setText(getResources().getString(R.string.recovered).toUpperCase());
-    }
-
-    private String lastReportedCaseText(List<KeyValuesModel> keyValuesModel) {
-        StringBuilder data = new StringBuilder(getResources().getString(R.string.last_reported_case).toUpperCase());
-        for (KeyValuesModel model : keyValuesModel) {
-            data.append(model.getLastupdatedtime());
-            break;
-        }
-        return data.toString();
     }
 
     private StateWiseModel getTotalData(List<StateWiseModel> stateWiseModel) {
